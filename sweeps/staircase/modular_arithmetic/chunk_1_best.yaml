@@ -1,0 +1,50 @@
+# best run is 17042
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "modular_arithmetic"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - ${args}
+name: staircase_modular_arithmetic_chunk_1_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    value: 256
+  embed_size:
+    value: 512
+  num_heads:
+    value: 16
+  lr:
+    value: 9.215054932166196e-05
+  dropout:
+    value: .1
+  second_training_steps:
+    value: 20_000
+  fix_staircase_size_forward:
+    value: 1
+  wd:
+    value: 0.01
+  adam_beta1_inv:
+    value: 0.024102180105318116
+  num_recurrent_calls:
+    value: 2
+  group_size:
+    value: 2
+

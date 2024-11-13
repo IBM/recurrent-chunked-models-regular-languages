@@ -1,0 +1,55 @@
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "cycle_navigation"
+  - "--chunk_size"
+  - "1"
+  - "--use_wandb"
+  - "--wandb_group"
+  - "search"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "brt"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - "--recurrent_layer_index"
+  - "2"
+  - "--num_layers"
+  - "3"
+  - "--second_training_steps"
+  - "100_000"
+  - ${args}
+name: brt_cycle_navigation_chunk_1_search
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [64, 128, 256]
+  embed_size:
+    values: [64, 256, 512]
+  num_heads:
+    values: [4, 8, 16]
+  lr:
+    distribution: log_uniform_values
+    min: 1e-5
+    max: 1e-3
+  dropout:
+    values: [0, .1, .2]
+  wd:
+    values: [0, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    distribution: log_uniform_values
+    min: .01 # 1-.99
+    max: .2 # 1-.8
+  num_state_vectors:
+    values: [1, 2, 4]
+

@@ -1,0 +1,50 @@
+# best run is 4984245
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "even_pairs"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - ${args}
+name: staircase_even_pairs_chunk_1_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    value: 128
+  embed_size:
+    value: 512
+  num_heads:
+    value: 4
+  lr:
+    value: 0.00011651272088680352
+  dropout:
+    value: .1
+  second_training_steps:
+    value: 20_000
+  fix_staircase_size_forward:
+    value: 1
+  wd:
+    value: 0.0001
+  adam_beta1_inv:
+    value: 0.037403201922838955
+  num_recurrent_calls:
+    value: 2
+  group_size:
+    value: 2
+

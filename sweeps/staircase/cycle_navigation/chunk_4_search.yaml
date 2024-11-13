@@ -1,0 +1,52 @@
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "cycle_navigation"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "search"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - ${args}
+name: staircase_cycle_navigation_chunk_4_search
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [64, 128, 256]
+  embed_size:
+    values: [64, 256, 512]
+  num_heads:
+    values: [4, 8, 16]
+  lr:
+    distribution: log_uniform_values
+    min: 1e-5
+    max: 1e-3
+  dropout:
+    values: [0, .1, .2]
+  second_training_steps:
+    value: 100_000
+  fix_staircase_size_forward:
+    value: 4
+  wd:
+    values: [0, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    distribution: log_uniform_values
+    min: .01 # 1-.99
+    max: .2 # 1-.8
+  num_recurrent_calls:
+    values: [2, 4]
+  group_size:
+    values: [1, 2]

@@ -1,0 +1,52 @@
+# best run is 4984275
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "even_pairs"
+  - "--chunk_size"
+  - "1"
+  - "--use_wandb"
+  - "--wandb_group"
+  - "best"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "brt"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - "--recurrent_layer_index"
+  - "2"
+  - "--num_layers"
+  - "3"
+  - "--second_training_steps"
+  - "50_000"
+  - ${args}
+name: brt_even_pairs_chunk_1_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [64]
+  embed_size:
+    values: [512]
+  num_heads:
+    values: [4]
+  lr:
+    value: 0.0001306004222636135
+  dropout:
+    values: [.2]
+  wd:
+    values: [.01]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.03125275307569325
+  num_state_vectors:
+    values: [1]
+

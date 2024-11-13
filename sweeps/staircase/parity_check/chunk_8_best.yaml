@@ -1,0 +1,50 @@
+# best run is stellar-sweep-16
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "parity_check"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - ${args}
+name: staircase_parity_check_chunk_8_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [64]
+  embed_size:
+    values: [512]
+  num_heads:
+    values: [8]
+  lr:
+    value: 4.987161216327536e-05
+  dropout:
+    values: [.2]
+  second_training_steps:
+    value: 1_000_000
+  fix_staircase_size_forward:
+    value: 8
+  wd:
+    values: [1e-5]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.14743898083496587
+  num_recurrent_calls:
+    values: [4]
+  group_size:
+    values: [2]
+

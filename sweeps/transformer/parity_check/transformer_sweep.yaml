@@ -1,0 +1,46 @@
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "parity_check"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "transformer"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "1"
+  - ${args}
+name: transformer_parity_check
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    value: 128
+  embed_size:
+    value: 64
+  num_heads:
+    value: 8
+  num_layers:
+    value: 5
+  lr:
+    value: 1e-4
+  dropout:
+    value: .1
+  second_training_steps:
+    value: 200_000
+  wd:
+    value: 0.01
+  adam_beta1_inv:
+    value: 0.1
+
+

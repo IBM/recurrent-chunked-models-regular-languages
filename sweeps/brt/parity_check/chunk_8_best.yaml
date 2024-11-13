@@ -1,0 +1,52 @@
+# best run is vague-sweep-17
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "parity_check"
+  - "--chunk_size"
+  - "8"
+  - "--use_wandb"
+  - "--wandb_group"
+  - "best"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "brt"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - "--recurrent_layer_index"
+  - "2"
+  - "--num_layers"
+  - "3"
+  - "--second_training_steps"
+  - "200_000"
+  - ${args}
+name: brt_parity_check_chunk_8_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [256]
+  embed_size:
+    values: [64]
+  num_heads:
+    values: [8]
+  lr:
+    value: 0.0004473465331297665
+  dropout:
+    values: [.1]
+  wd:
+    values: [1e-4]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.0922214302151622
+  num_state_vectors:
+    values: [32]
+

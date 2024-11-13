@@ -1,0 +1,50 @@
+# best run is lively-sweep-4
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "cycle_navigation"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - ${args}
+name: staircase_cycle_navigation_chunk_4_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [256]
+  embed_size:
+    values: [64]
+  num_heads:
+    values: [8]
+  lr:
+    value: 0.0004572790611999609
+  dropout:
+    values: [.2]
+  second_training_steps:
+    value: 100_000
+  fix_staircase_size_forward:
+    value: 4
+  wd:
+    values: [0.001]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.05479795095675179
+  num_recurrent_calls:
+    values: [2]
+  group_size:
+    values: [2]
+

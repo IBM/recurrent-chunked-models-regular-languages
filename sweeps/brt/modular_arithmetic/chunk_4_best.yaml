@@ -1,0 +1,52 @@
+# best run is 19247
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "modular_arithmetic"
+  - "--chunk_size"
+  - "4"
+  - "--use_wandb"
+  - "--wandb_group"
+  - "best"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "brt"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - "--recurrent_layer_index"
+  - "2"
+  - "--num_layers"
+  - "3"
+  - "--second_training_steps"
+  - "200_000"
+  - ${args}
+name: brt_modular_arithmetic_chunk_4_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [64]
+  embed_size:
+    values: [64]
+  num_heads:
+    values: [16]
+  lr:
+    value: 0.0002727190242852865
+  dropout:
+    values: [.1]
+  wd:
+    values: [0.001]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.06288004516788523
+  num_state_vectors:
+    values: [8]
+

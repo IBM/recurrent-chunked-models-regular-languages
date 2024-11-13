@@ -1,0 +1,50 @@
+# best run is dazzling-sweep-11
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "parity_check"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--include_eos"
+  - "0"
+  - "--validate"
+  - ${args}
+name: staircase_parity_check_chunk_2_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [256]
+  embed_size:
+    values: [64]
+  num_heads:
+    values: [8]
+  lr:
+    value: 0.0003551589862157637
+  dropout:
+    values: [.1]
+  second_training_steps:
+    value: 20_000
+  fix_staircase_size_forward:
+    value: 2
+  wd:
+    values: [1e-2]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.03185991498729463
+  num_recurrent_calls:
+    values: [2]
+  group_size:
+    values: [2]
+

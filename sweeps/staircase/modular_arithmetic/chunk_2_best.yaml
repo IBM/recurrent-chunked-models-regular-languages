@@ -1,0 +1,50 @@
+# best run is 17016
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "modular_arithmetic"
+  - "--use_wandb"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "my_staircase"
+  - "--wandb_group"
+  - "best"
+  - "--is_causal"
+  - "1"
+  - "--include_eos"
+  - "0"
+  - "--validate"
+  - ${args}
+name: staircase_modular_arithmetic_chunk_2_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [256]
+  embed_size:
+    values: [256]
+  num_heads:
+    values: [16]
+  lr:
+    value: 0.00034532112055968766
+  dropout:
+    values: [0]
+  second_training_steps:
+    value: 20_000
+  fix_staircase_size_forward:
+    value: 2
+  wd:
+    values: [0]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.18365574341700827
+  num_recurrent_calls:
+    values: [2]
+  group_size:
+    values: [1]
+

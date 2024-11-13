@@ -1,0 +1,51 @@
+# best run is misty-sweep-9
+program: experiments/example.py
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - "--task"
+  - "cycle_navigation"
+  - "--chunk_size"
+  - "2"
+  - "--use_wandb"
+  - "--wandb_group"
+  - "best"
+  - "--wandb_project"
+  - "staircase_chunk"
+  - "--architecture"
+  - "brt"
+  - "--is_causal"
+  - "1"
+  - "--validate"
+  - "--include_eos"
+  - "0"
+  - "--recurrent_layer_index"
+  - "2"
+  - "--num_layers"
+  - "3"
+  - "--second_training_steps"
+  - "100_000"
+  - ${args}
+name: brt_cycle_navigation_chunk_2_best
+method: random
+metric:
+  name: score
+  goal: maximize
+parameters:
+  batch_size:
+    values: [256]
+  embed_size:
+    values: [256]
+  num_heads:
+    values: [4]
+  lr:
+    value: 0.0004071282606546677
+  dropout:
+    values: [0]
+  wd:
+    values: [1e-2]
+  adam_beta1_inv: # Searches adam beta1 between .8 and .99 with more weight put towards .99
+    value: 0.06343023600718231
+  num_state_vectors:
+    values: [2]
